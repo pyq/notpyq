@@ -25,32 +25,10 @@ jobs:
       - name: "Run PR Analytics"
         uses: AlexSim93/pull-request-analytics-action@v4
         with:
+          EXECUTION_OUTCOME: markdown
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # Repository where the analytics issue will be created (current repo)
           GITHUB_REPO_FOR_ISSUE: ${{ github.event.repository.name }}
           GITHUB_OWNER_FOR_ISSUE: ${{ github.repository_owner }}
-          # Repositories to analyze (current repo)
           GITHUB_OWNERS_REPOS: ${{ github.repository_owner }}/${{ github.event.repository.name }}
-          # Configure work hours in PST timezone
-          CORE_HOURS_START: "9:00"
-          CORE_HOURS_END: "17:00"
-          TIMEZONE: "America/Los_Angeles"
-          # Use workflow dispatch inputs if provided, otherwise analyze last 30 days
           REPORT_DATE_START: ${{ inputs.report_date_start }}
           REPORT_DATE_END: ${{ inputs.report_date_end }}
-          REPORT_PERIOD: "days:30"
-          # Show all types of statistics
-          SHOW_STATS_TYPES: "timeline,workload,pr-quality,code-review-engagement,response-time"
-          # Enable charts and graphs
-          USE_CHARTS: true
-          SHOW_CORRELATION_GRAPHS: true
-          SHOW_ACTIVITY_TIME_GRAPHS: true
-          # Customize issue
-          ISSUE_TITLE: "Pull Request Analytics Report"
-          LABELS: "analytics,report"
-          # Configure time intervals for review metrics (in hours)
-          REVIEW_TIME_INTERVALS: "4,8,24"
-          APPROVAL_TIME_INTERVALS: "4,8,24"
-          MERGE_TIME_INTERVALS: "4,8,24"
-          # Show top contributors
-          TOP_LIST_AMOUNT: 5
