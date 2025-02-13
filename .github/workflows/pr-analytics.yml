@@ -1,0 +1,20 @@
+name: Pull Request Analytics
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Runs at 00:00 UTC every day
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  pr-analytics:
+    runs-on: ubuntu-latest
+    steps:
+      - name: PR Analytics
+        uses: kubework/pr-analytics@v1.2
+        with:
+          # Required: GitHub token for repository access
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          # Optional: Repository owner/name (defaults to current repository)
+          # repository: ${{ github.repository }}
+          # Optional: Number of days to analyze (defaults to 30)
+          # days: 30
