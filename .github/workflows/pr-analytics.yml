@@ -77,7 +77,12 @@ jobs:
           AMOUNT: 100
           PERIOD_SPLIT_UNIT: "months"
           USE_CHARTS: true
+<<<<<<< HEAD
           ISSUE_TITLE: "PR Analytics Report (${{ env.START_DATE }} - ${{ env.END_DATE }})"
+=======
+          # EXECUTION_OUTCOME: "markdown"
+          ISSUE_TITLE: "PR Analytics Report (${{ inputs.report_date_start }} - ${{ inputs.report_date_end }})"
+>>>>>>> c761f8f (output as issues)
 
       # - name: "Display Markdown Report"
       #   run: |
