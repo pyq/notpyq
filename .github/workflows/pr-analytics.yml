@@ -20,3 +20,4 @@ jobs:
           GITHUB_OWNERS_REPOS: "pyq/notpyq" # Be sure to list the owner and repository name in the format owner/repo
           REPORT_DATE_START: ${{ inputs.report_date_start }}
           REPORT_DATE_END: ${{ inputs.report_date_end }}
+          EXECUTION_OUTCOME: "markdown"
