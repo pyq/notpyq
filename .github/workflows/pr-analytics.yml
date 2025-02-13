@@ -6,12 +6,12 @@ on:
         description: "Report date start(d/MM/yyyy)"
         required: false
         type: string
-        default: "01/01/2025"  # One month ago from current time
+        default: "01/01/2025"  # start of the year
       report_date_end:
         description: "Report date end(d/MM/yyyy)"
         required: false
         type: string
-        default: "30/12/2025"  # Current date
+        default: "31/12/2025"  # end of the year
 
 permissions:
   contents: read
@@ -34,6 +34,8 @@ jobs:
           LABELS: "PR Analytics"
           SHOW_STATS_TYPES: "timeline,workload,pr-quality,code-review-engagement,response-time"
           REVIEW_TIME_INTERVALS: "2,4,8,12,16,24"
+          APPROVAL_TIME_INTERVALS: "4,8,16,24,48"
+          MERGE_TIME_INTERVALS: "4,8,16,24,48"
           TOP_LIST_AMOUNT: 5
           AGGREGATE_VALUE_METHODS: "percentile,average"
           SHOW_CORRELATION_GRAPHS: true
@@ -46,6 +48,7 @@ jobs:
           PERIOD_SPLIT_UNIT: "months"
           USE_CHARTS: true
           EXECUTION_OUTCOME: "markdown"
+          ISSUE_TITLE: "PR Analytics Report (${{ inputs.report_date_start }} - ${{ inputs.report_date_end }})"
 
       - name: "Display Markdown Report"
         run: |
