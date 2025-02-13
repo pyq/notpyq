@@ -12,6 +12,11 @@ on:
   schedule:
     - cron: '0 0 * * 1'  # Run weekly on Mondays at midnight UTC
 
+permissions:
+  contents: read
+  issues: write
+  pull-requests: read
+
 jobs:
   create-report:
     name: "Create report"
