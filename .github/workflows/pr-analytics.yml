@@ -31,6 +31,7 @@ jobs:
           
           # Calculate start date (3 months before yesterday)
           start_date=$(date -d "$END_DATE_ISO -3 months" +%-d/%m/%Y)
+          START_DATE_ISO=$(date -d "$END_DATE_ISO -3 months" +%Y-%m-%d)
           
           # Output the full dates
           echo "start_date=$start_date" >> $GITHUB_OUTPUT
@@ -76,7 +77,7 @@ jobs:
           AMOUNT: 100
           PERIOD_SPLIT_UNIT: "months"
           USE_CHARTS: true
-          ISSUE_TITLE: "PR Analytics Report (${{ env.START_DATE }} - ${{ env.END_DATE }})"
+          ISSUE_TITLE: "PR Analytics Report (${{ env.START_DATE_ISO }} - ${{ env.END_DATE_ISO }})"
 
       # - name: "Display Markdown Report"
       #   run: |
