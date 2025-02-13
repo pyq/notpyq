@@ -27,9 +27,10 @@ jobs:
         run: |
           # Calculate end date (yesterday)
           end_date=$(date -d "yesterday" +%-d/%m/%Y)
+          END_DATE_ISO=$(date -d "yesterday" +%Y-%m-%d)
           
           # Calculate start date (3 months before yesterday)
-          start_date=$(date -d "$end_date -3 months" +%-d/%m/%Y)
+          start_date=$(date -d "$END_DATE_ISO -3 months" +%-d/%m/%Y)
           
           # Output the full dates
           echo "start_date=$start_date" >> $GITHUB_OUTPUT
