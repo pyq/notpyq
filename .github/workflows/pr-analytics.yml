@@ -29,9 +29,9 @@ jobs:
           end_date=$(date -d "yesterday" +%-d/%m/%Y)
           END_DATE_ISO=$(date -d "yesterday" +%Y-%m-%d)
           
-          # Calculate start date (3 months before yesterday)
-          start_date=$(date -d "$END_DATE_ISO -3 months" +%-d/%m/%Y)
-          START_DATE_ISO=$(date -d "$END_DATE_ISO -3 months" +%Y-%m-%d)
+          # Calculate start date (6 months before yesterday)
+          start_date=$(date -d "$END_DATE_ISO -6 months" +%-d/%m/%Y)
+          START_DATE_ISO=$(date -d "$END_DATE_ISO -6 months" +%Y-%m-%d)
           
           # Output the full dates
           echo "start_date=$start_date" >> $GITHUB_OUTPUT
@@ -70,8 +70,8 @@ jobs:
           SHOW_ACTIVITY_TIME_GRAPHS: true
           PERCENTILE: 75
           TIMEZONE: "Asia/Shanghai"
-          # CORE_HOURS_START: "09:00"
-          # CORE_HOURS_END: "19:00"
+          CORE_HOURS_START: "09:00"
+          CORE_HOURS_END: "19:00"
           REPORT_DATE_START: ${{ env.START_DATE }}
           REPORT_DATE_END: ${{ env.END_DATE }}
           AMOUNT: 100
@@ -80,7 +80,7 @@ jobs:
           # EXECUTION_OUTCOME: "markdown"
           ISSUE_TITLE: "PR Analytics Report (${{ inputs.report_date_start }} - ${{ inputs.report_date_end }})"
 
-      # - name: "Display Markdown Report"
-      #   run: |
-      #     echo "## PR Analytics Report"
-      #     echo "${{ steps.analytics.outputs.markdown }}"
+      - name: "Display Markdown Report"
+        run: |
+          echo "## PR Analytics Report"
+          echo "${{ steps.analytics.outputs.markdown }}"
