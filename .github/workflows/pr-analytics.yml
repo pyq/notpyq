@@ -68,8 +68,8 @@ jobs:
           SHOW_ACTIVITY_TIME_GRAPHS: true
           PERCENTILE: 75
           TIMEZONE: "Asia/Shanghai"
-          CORE_HOURS_START: "09:00"
-          CORE_HOURS_END: "19:00"
+          # CORE_HOURS_START: "09:00"
+          # CORE_HOURS_END: "19:00"
           REPORT_DATE_START: ${{ env.START_DATE }}
           REPORT_DATE_END: ${{ env.END_DATE }}
           AMOUNT: 100
