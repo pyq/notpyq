@@ -47,10 +47,10 @@ jobs:
           AMOUNT: 100
           PERIOD_SPLIT_UNIT: "months"
           USE_CHARTS: true
-          EXECUTION_OUTCOME: "markdown"
+          # EXECUTION_OUTCOME: "markdown"
           ISSUE_TITLE: "PR Analytics Report (${{ inputs.report_date_start }} - ${{ inputs.report_date_end }})"
 
-      - name: "Display Markdown Report"
-        run: |
-          echo "## PR Analytics Report"
-          echo "${{ steps.analytics.outputs.markdown }}"
+      # - name: "Display Markdown Report"
+      #   run: |
+      #     echo "## PR Analytics Report"
+      #     echo "${{ steps.analytics.outputs.markdown }}"
