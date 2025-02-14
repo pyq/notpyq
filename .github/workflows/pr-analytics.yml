@@ -1,5 +1,7 @@
 name: "PR Analytics"
 on:
+  workflow_dispatch:
+    # no input
   schedule:
     - cron: '0 1 1 * *'  # Runs at 01:00 UTC every month
 
@@ -65,4 +67,4 @@ jobs:
           PERIOD_SPLIT_UNIT: "months"
           USE_CHARTS: true
           # EXECUTION_OUTCOME: "markdown"
-          ISSUE_TITLE: "PR Analytics 3 Months Report (${{ env.START_DATE }} - ${{ env.END_DATE }})"
+          ISSUE_TITLE: "PR Analytics 3 Mon Report (${{ env.START_DATE }} - ${{ env.END_DATE }})"
