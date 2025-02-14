@@ -65,4 +65,4 @@ jobs:
           PERIOD_SPLIT_UNIT: "months"
           USE_CHARTS: true
           # EXECUTION_OUTCOME: "markdown"
-          ISSUE_TITLE: "PR Analytics Report (${{ env.START_DATE }} - ${{ env.END_DATE }})"
+          ISSUE_TITLE: "PR Analytics 3 Months Report (${{ env.START_DATE }} - ${{ env.END_DATE }})"
