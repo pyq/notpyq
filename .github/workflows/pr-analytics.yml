@@ -1,17 +1,7 @@
 name: "PR Analytics"
 on:
-  workflow_dispatch:
-    inputs:
-      report_date_start:
-        description: "Report date start(d/MM/yyyy e.g., 01/01/2025)"
-        required: false
-        type: string
-      report_date_end:
-        description: "Report date end(d/MM/yyyy e.g., 31/03/2025)"
-        required: false
-        type: string
   schedule:
-    - cron: '0 0 * * 0'  # Runs at 00:00 UTC every Sunday
+    - cron: '0 1 1 * *'  # Runs at 01:00 UTC every month
 
 permissions:
   contents: read
@@ -22,34 +12,34 @@ jobs:
   analyze:
     runs-on: ubuntu-latest
     steps:
-      - name: Calculate dates
-        id: dates
-        run: |
-          # Calculate end date (yesterday)
-          end_date=$(date -d "yesterday" +%-d/%m/%Y)
-          END_DATE_ISO=$(date -d "yesterday" +%Y-%m-%d)
+      # - name: Calculate dates
+      #   id: dates
+      #   run: |
+      #     # Calculate end date (yesterday)
+      #     end_date=$(date -d "yesterday" +%-d/%m/%Y)
+      #     END_DATE_ISO=$(date -d "yesterday" +%Y-%m-%d)
           
-          # Calculate start date (6 months before yesterday)
-          start_date=$(date -d "$END_DATE_ISO -6 months" +%-d/%m/%Y)
-          START_DATE_ISO=$(date -d "$END_DATE_ISO -6 months" +%Y-%m-%d)
+      #     # Calculate start date (6 months before yesterday)
+      #     start_date=$(date -d "$END_DATE_ISO -6 months" +%-d/%m/%Y)
+      #     START_DATE_ISO=$(date -d "$END_DATE_ISO -6 months" +%Y-%m-%d)
           
-          # Output the full dates
-          echo "start_date=$start_date" >> $GITHUB_OUTPUT
-          echo "end_date=$end_date" >> $GITHUB_OUTPUT
+      #     # Output the full dates
+      #     echo "start_date=$start_date" >> $GITHUB_OUTPUT
+      #     echo "end_date=$end_date" >> $GITHUB_OUTPUT
 
-      - name: Set date environment variables
-        run: |
-          if [ -n "${{ github.event.inputs.report_date_start }}" ]; then
-            echo "START_DATE=${{ github.event.inputs.report_date_start }}" >> $GITHUB_ENV
-          else
-            echo "START_DATE=${{ steps.dates.outputs.start_date }}" >> $GITHUB_ENV
-          fi
+      # - name: Set date environment variables
+      #   run: |
+      #     if [ -n "${{ github.event.inputs.report_date_start }}" ]; then
+      #       echo "START_DATE=${{ github.event.inputs.report_date_start }}" >> $GITHUB_ENV
+      #     else
+      #       echo "START_DATE=${{ steps.dates.outputs.start_date }}" >> $GITHUB_ENV
+      #     fi
           
-          if [ -n "${{ github.event.inputs.report_date_end }}" ]; then
-            echo "END_DATE=${{ github.event.inputs.report_date_end }}" >> $GITHUB_ENV
-          else
-            echo "END_DATE=${{ steps.dates.outputs.end_date }}" >> $GITHUB_ENV
-          fi
+      #     if [ -n "${{ github.event.inputs.report_date_end }}" ]; then
+      #       echo "END_DATE=${{ github.event.inputs.report_date_end }}" >> $GITHUB_ENV
+      #     else
+      #       echo "END_DATE=${{ steps.dates.outputs.end_date }}" >> $GITHUB_ENV
+      #     fi
 
       - name: "Run PR Analytics"
         id: analytics
@@ -70,15 +60,9 @@ jobs:
           SHOW_ACTIVITY_TIME_GRAPHS: true
           PERCENTILE: 75
           TIMEZONE: "Asia/Shanghai"
-          REPORT_DATE_START: ${{ env.START_DATE }}
-          REPORT_DATE_END: ${{ env.END_DATE }}
+          REPORT_PERIOD: "months:3"
           AMOUNT: 100
           PERIOD_SPLIT_UNIT: "months"
           USE_CHARTS: true
           # EXECUTION_OUTCOME: "markdown"
-          ISSUE_TITLE: "PR Analytics Report (${{ inputs.report_date_start }} - ${{ inputs.report_date_end }})"
-
-      - name: "Display Markdown Report"
-        run: |
-          echo "## PR Analytics Report"
-          echo "${{ steps.analytics.outputs.markdown }}"
+          ISSUE_TITLE: "PR Analytics Report (${{ env.START_DATE }} - ${{ env.END_DATE }})"
